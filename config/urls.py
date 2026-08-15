@@ -25,4 +25,5 @@ urlpatterns = [
     path("api/", include("apps.workspaces.urls")),
     path("api/", include("apps.tags.urls")),
     path("api/", include("apps.comments.urls")),
+    path("api/", include("apps.auditlogs.urls")),
 ]

@@ -28,9 +28,9 @@ Tracks what's done vs. what's left against the assignment brief.
 | `.env.example`, pinned `requirements.txt` | ✅ Done |
 | **Request-logging middleware** | ✅ Done |
 | **AuditLog read API** (`GET /api/audit-logs/`) | ✅ Done |
-| Workspace summary/stats endpoint (claimed in README, not built) | ❌ Pending |
+| Workspace summary/stats endpoint (claimed in README, not built) | ✅ Done |
 | README accuracy (ownership table, feature list) | ⚠️ Needs cleanup |
-| Automated tests (`tests.py` in every app is still the empty stub) | ⚠️ Not required by brief, optional |
+| Automated tests (`tests.py` in every app is still the empty stub) | ⚠️ Not required by brief, optional - leaving this out for now|
 | Demo video (Loom/Drive link in README) | ❌ Pending |
 
 ---

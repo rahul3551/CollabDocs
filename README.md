@@ -295,7 +295,7 @@ See [PROGRESS_TRACKER.md](./PROGRESS_TRACKER.md) for full details and owners.
 
 # Contributors
 
-- Rahul Chauhan
-- ____________________
-- ____________________
-- ____________________
+- Rahul Chauhan (40%)
+- Nelson(30%)
+- srinija(20%)
+- vishwas (10%)

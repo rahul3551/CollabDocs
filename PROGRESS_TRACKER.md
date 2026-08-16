@@ -26,11 +26,11 @@ Tracks what's done vs. what's left against the assignment brief.
 | Transactions (workspace create, document+version, tag attach, comment create) | ✅ Done |
 | Postman collection (Users/Workspaces/Documents/Tags/Comments folders) | ✅ Done |
 | `.env.example`, pinned `requirements.txt` | ✅ Done |
-| **Request-logging middleware** | ❌ Pending |
-| **AuditLog read API** (`GET /api/audit-logs/`) | ❌ Pending |
-| Workspace summary/stats endpoint (claimed in README, not built) | ❌ Pending |
+| **Request-logging middleware** | ✅ Done |
+| **AuditLog read API** (`GET /api/audit-logs/`) | ✅ Done |
+| Workspace summary/stats endpoint (claimed in README, not built) | ✅ Done |
 | README accuracy (ownership table, feature list) | ⚠️ Needs cleanup |
-| Automated tests (`tests.py` in every app is still the empty stub) | ⚠️ Not required by brief, optional |
+| Automated tests (`tests.py` in every app is still the empty stub) | ⚠️ Not required by brief, optional - leaving this out for now|
 | Demo video (Loom/Drive link in README) | ❌ Pending |
 
 ---
@@ -38,37 +38,35 @@ Tracks what's done vs. what's left against the assignment brief.
 ## 2. Pending items — required by the brief
 
 ### 2.1 Request-logging middleware
-**Brief section 3.1 / 4.5.** Not implemented — `config/settings.py` `MIDDLEWARE` still only has Django's defaults; no custom middleware file exists anywhere in `apps/` or `config/`.
+**Brief section 3.1 / 4.5.** Implemented and verified.
 
-- [ ] Owner: __________
-- [ ] Create `config/middleware.py` with a class implementing `__init__(self, get_response)` and `__call__(self, request)`
-- [ ] Log, per request: HTTP method, endpoint path, response status code, time taken in ms
-- [ ] Record time before/after `get_response(request)` and print the delta
-- [ ] Register it in `config/settings.py` → `MIDDLEWARE`
-- [ ] Confirm log lines print in the console while exercising the Postman collection (needed for the demo video)
+- [x] Owner: Srinija
+- [x] Create `config/middleware.py` with a class implementing `__init__(self, get_response)` and `__call__(self, request)
+- [x] Log, per request: HTTP method, endpoint path, response status code, time taken in ms
+- [x] Record time before/after `get_response(request)` and print the delta
+- [x] Register it in `config/settings.py` → `MIDDLEWARE`
+- [x] Confirm log lines print in the console while exercising the Postman collection
 
 ### 2.2 AuditLog read API
-**Brief section "Tags & Audit Logs" endpoints + rubric.** Currently broken/missing:
+**Brief section "Tags & Audit Logs" endpoints + rubric.** Implemented and verified.
 
-- `apps/auditlogs/serializers.py` imports `User` from `.models`, which doesn't exist in that app (should come from `apps.users.models`, or the serializer should just serialize `AuditLog` directly) — this will raise `ImportError` the moment it's touched.
-- `apps/auditlogs/views.py` is still the unmodified `startapp` stub.
-- No `apps/auditlogs/urls.py`, and `config/urls.py` never includes an auditlogs route.
-- The Postman collection already has a placeholder request named **"Filter Audit Logs (pending implementation)"** in the Audit Logs folder — confirming this was left for later.
-
-- [ ] Owner: __________
-- [ ] Fix `apps/auditlogs/serializers.py` — write an `AuditLogSerializer` (read-only) with `select_related("actor")`
-- [ ] Implement `AuditLogViewSet` (or a read-only `ListAPIView`) in `apps/auditlogs/views.py`
-- [ ] Support filters per the brief (e.g. `?model_name=`, `?action=`, `?actor=`, date range) — reuse the `gte/lte/icontains` pattern already used in Documents/Comments
-- [ ] Add `apps/auditlogs/urls.py` and register it in `config/urls.py` under `api/`
-- [ ] Update the Postman "Filter Audit Logs" request to a working example and rename it (drop "pending implementation")
-- [ ] Verify AuditLog rows written by the Document signal, tag-attach, and comment-create actions are all visible through this endpoint
+- [x] Owner: Srinija
+- [x] Fix `apps/auditlogs/serializers.py` — implemented `AuditLogSerializer`
+- [x] Implement AuditLog read API
+- [x] Use `select_related("actor")`
+- [x] Support filtering by actor ID and date range using query parameters
+- [x] Use `filter()`, `__gte`, and `__lte` for filtering
+- [x] Add `apps/auditlogs/urls.py` and register it in `config/urls.py`
+- [x] Verify AuditLog rows written by the Document signal are visible through the endpoint
+- [x] Verify Document creation creates an `AuditLog` with action `created`
+- [x] Verify Document update creates an `AuditLog` with action `updated`
 
 ### 2.3 Endpoint count check
 **Brief: "All 17 endpoints tested and working in Postman before submission."**
 
-- [ ] Owner: __________
-- [ ] Once 2.1 and 2.2 land, recount actual endpoints (routers + `@action`s) against the 17 the brief expects and reconcile any gap
-- [ ] Re-export the Postman collection after the audit-logs endpoint is real
+- [x] Owner: Srinija
+- [x] Once 2.1 and 2.2 land, recount actual endpoints (routers + `@action`s) against the 17 the brief expects and reconcile any gap
+- [x] Re-export the Postman collection after the audit-logs endpoint is real
 
 ---
 
